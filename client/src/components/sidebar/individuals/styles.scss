@@ -1,0 +1,14 @@
+.side-menu {
+  transition: width 0.2s ease-in;
+}
+.active {
+  width: 60px;
+  font-size: 0px;
+  .image-reducer {
+    width: 50px;
+    height: 40px;
+    transition: width 0.2s ease-in;
+    transition: height 0.2s ease-in;
+    box-sizing: content-box;
+  }
+}
