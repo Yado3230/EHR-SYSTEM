@@ -38,7 +38,7 @@ const createSendToken = (user, statusCode, res) => {
   user.password = undefined;
   res.cookie('jwt', token, cookieOptions);
   res.status(statusCode).json({
-    message: 'success',
+    message: 'successful',
     token,
     data: {
       user,
@@ -153,9 +153,7 @@ exports.forgotPassword = async (req, res, next) => {
     const resetToken = user.createPasswordResetToken();
     await user.save({ validateBeforeSave: false });
     ///send it to users email
-    const resetURL = `${req.protocal}://${req.get(
-      'host'
-    )}/api/auth/resetPassword/${resetToken}`;
+    const resetURL = `${req.protocol}://localhost:3000/api/auth/resetPassword/${resetToken}`;
     const message = `Forgot your password? Submit a PATCH request with your
      new password and confirmPassword to ${resetURL}
      If you didn't forgot your password, please ignore this email`;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // import { login } from '../../components/services/authServices';
@@ -12,18 +12,7 @@ const Login = () => {
     email: '',
     password: '',
   });
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     email: '',
-  //     password: '',
-  //     responseResult: '',
-  //   };
-  // }
-  // const handleChange = e => {
-  //   const { value, name } = e.target;
-  //   this.setState({ [name]: value });
-  // };
+
   const handleChange = e => {
     const { name, value } = e.target;
     setUser({
@@ -36,36 +25,15 @@ const Login = () => {
     const result = await axios
       .post('http://localhost:5000/api/auth/login', user)
       .then(res => {
+        console.log(res);
         return res;
       });
     if (result.status === 200) {
-      navigate(`/${result.data.role}`);
+      navigate(`/${result.data.data.user.role}`);
+      console.log(result.data.data.user.role);
     }
   };
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const { email, password } = this.state;
-  //   console.log('this one', email, password);
-  //   try {
-  //     await axios
-  //       .post(
-  //         'http://localhost:5000/api/auth/login',
-  //         {},
-  //         {
-  //           email,
-  //           password,
-  //         }
-  //       )
-  //       .then(response => {
-  //         console.log('this is from promise', response.data);
-  //       })
-  //       .then(err => console.log(err));
-  //     this.setState({ email: '', password: '' });
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-  // render() {
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <div className="bg-white flex shadow-xl rounded-2xl">

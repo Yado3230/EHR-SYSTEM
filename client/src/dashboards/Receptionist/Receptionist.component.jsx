@@ -4,6 +4,8 @@ import Header from '../../components/Header/Header';
 import AddPatient from '../../components/Patients/AddPatient/AddPatient';
 import PatientRegistration from '../../components/Patients/AddPatient/PatientRegistration';
 import PatientList from '../../components/Patients/Patient List/PatientList';
+// import ChangePassword from '../../components/Profile/ChangePassword';
+import Profile from '../../components/Profile/Profile';
 import ReceptionistSideBar from '../../components/sidebar/individuals/ReceptionistSideBar';
 import ReceptionistDashboard from './ReceptionistDashboard';
 
@@ -21,6 +23,7 @@ const Receptionist = () => {
           <Route path="dashboard" element={<ReceptionistDashboard />} />
           <Route path="patients/lists" element={<PatientList />} />
           <Route path="patients/listsss" element={<AddPatient />} />
+          <Route path="profile" element={<Profile />} />
         </Routes>
       </div>
     </div>

@@ -14,14 +14,14 @@ const Lists = ({ activeHidden, data, handleClick, handleEditClick, title }) => {
         {title}
       </h3>
       <div className="flex flex-col p-4">
-        <div class="ui right icon input h-8 w-40 self-end mb-2">
+        <div className="ui right icon input h-8 w-40 self-end mb-2">
           <input
             type="text"
             className="text-sm"
             placeholder="Search patient..."
           />
-          <i class="user icon small"></i>
-          {/* <i class="search icon"></i> */}
+          <i className="user icon small"></i>
+          {/* <i className="search icon"></i> */}
         </div>
         <table className="border-collapse border border-gray-200">
           <thead>

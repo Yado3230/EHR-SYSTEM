@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const PatientRegistration = () => {
-  const current = new Date().toISOString().split("T")[0];
+  const current = new Date().toISOString().split('T')[0];
 
   return (
     <div className="add-patient flex flex-col my-10 m-16 bg-white border-gray-700 rounded-md shadow">
@@ -16,19 +16,19 @@ const PatientRegistration = () => {
           <label className="p-1">{current}</label>
         </div>
         <div className="flex-flex-col border-2 rounded my-2">
-          <h3 class="ui block header h-10 flex text-4xl justify-center items-center">
+          <h3 className="ui block header h-10 flex text-4xl justify-center items-center">
             Patient Information
           </h3>
-          <div class="three fields p-2">
-            <div class="field">
+          <div className="three fields p-2">
+            <div className="field">
               <label>First name</label>
               <input type="text" placeholder="First Name" />
             </div>
-            <div class="field">
+            <div className="field">
               <label>Middle name</label>
               <input type="text" placeholder="Middle Name" />
             </div>
-            <div class="field">
+            <div className="field">
               <label>Last name</label>
               <input type="text" placeholder="Last Name" />
             </div>
@@ -45,7 +45,7 @@ const PatientRegistration = () => {
 
             <div className="field">
               <label className="label">Gender</label>
-              <select class="ui dropdown">
+              <select className="ui dropdown">
                 <option value="">Gender</option>
                 <option value="1">Male</option>
                 <option value="0">Female</option>
@@ -54,7 +54,7 @@ const PatientRegistration = () => {
 
             <div className="field">
               <label className="label">Marital Status</label>
-              <select class="ui dropdown">
+              <select className="ui dropdown">
                 <option value="">Marital Status</option>
                 <option value="1">Single</option>
                 <option value="0">Married</option>
@@ -92,7 +92,7 @@ const PatientRegistration = () => {
         </div>
 
         <div className="flex-flex-col border-2 rounded my-2">
-          <h3 class="ui block header h-10 flex text-4xl justify-center items-center">
+          <h3 className="ui block header h-10 flex text-4xl justify-center items-center">
             In Case of Emergency
           </h3>
           <div className="three fields">
@@ -117,7 +117,7 @@ const PatientRegistration = () => {
           </div>
         </div>
         <div className="flex-flex-col border-2 rounded my-2">
-          <h3 class="ui block header h-10 flex text-4xl justify-center items-center">
+          <h3 className="ui block header h-10 flex text-4xl justify-center items-center">
             Insurance Information
           </h3>
           <div className="three fields p-2">

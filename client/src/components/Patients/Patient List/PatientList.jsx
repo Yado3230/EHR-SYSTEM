@@ -27,7 +27,7 @@ const PatientList = () => {
   useEffect(() => {
     const fetchdata = async () => {
       const result = await axios.get(
-        'http://localhost:5000/api/system/patient-list'
+        'http://localhost:5000/api/system/patients'
       );
       setData(result.data.patients);
     };

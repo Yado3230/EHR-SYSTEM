@@ -5,19 +5,19 @@ const AddPatient = () => {
     // <div className="flex items-center justify-center border rounded shadow bg-white">
     <form action="" className="ui form w-120 bg-slate-100">
       <div className="flex-flex-col border-2 rounded my-2">
-        <h3 class="ui block header h-10 flex text-4xl justify-center items-center">
+        <h3 className="ui block header h-10 flex text-4xl justify-center items-center">
           Update Patient Information
         </h3>
-        <div class="three fields p-2">
-          <div class="field">
+        <div className="three fields p-2">
+          <div className="field">
             <label>First name</label>
             <input type="text" placeholder="First Name" />
           </div>
-          <div class="field">
+          <div className="field">
             <label>Middle name</label>
             <input type="text" placeholder="Middle Name" />
           </div>
-          <div class="field">
+          <div className="field">
             <label>Last name</label>
             <input type="text" placeholder="Last Name" />
           </div>
@@ -35,7 +35,7 @@ const AddPatient = () => {
         <div className="two fields p-2">
           <div className="field">
             <label className="label">Gender</label>
-            <select class="ui dropdown">
+            <select className="ui dropdown">
               <option value="">Gender</option>
               <option value="1">Male</option>
               <option value="0">Female</option>
@@ -44,7 +44,7 @@ const AddPatient = () => {
 
           <div className="field">
             <label className="label">Marital Status</label>
-            <select class="ui dropdown">
+            <select className="ui dropdown">
               <option value="">Marital Status</option>
               <option value="1">Single</option>
               <option value="0">Married</option>
