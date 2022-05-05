@@ -4,33 +4,33 @@ const validator = require('validator');
 // const bcrypt = require('bcryptjs');
 
 const medicalRecordSchema = new mongoose.Schema({
-  symptom: {
+  symptoms: {
     type: String,
     required: [true, 'symptoms are required'],
   },
   bloodPressure: {
     type: String,
   },
-  Temprature: {
+  temprature: {
     type: String,
   },
   surgeries: {
     type: String,
   },
   diagnoses: {
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Diagnose',
   },
   patient: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Parient',
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Patient',
   },
   doctor: {
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Staff',
   },
   labTest: {
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'labTest',
   },
   description: {

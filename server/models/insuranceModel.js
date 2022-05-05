@@ -14,7 +14,8 @@ const insuranceSchema = new mongoose.Schema({
     type: Date,
   },
   createdAt: {
-    type: Number,
+    type: Date,
+    default: Date.now,
   },
 });
 

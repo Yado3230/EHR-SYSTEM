@@ -5,7 +5,7 @@ const validator = require('validator');
 
 const staffSchema = new mongoose.Schema(
   {
-    patientName: {
+    name: {
       type: String,
       required: [true, 'Patient must have a name'],
     },
@@ -95,7 +95,7 @@ const staffSchema = new mongoose.Schema(
   }
 );
 
-patientSchema.pre('save', async function (next) {
+staffSchema.pre('save', async function (next) {
   this.password = undefined;
   this.confirmPassword = undefined;
   next();

@@ -17,7 +17,10 @@ exports.createPrescription = async (req, res) => {
 
 exports.getAllPrescriptions = async (req, res) => {
   try {
-    const presctiptions = await Prescription.find();
+    const queryObj = { ...req.query };
+    const excludedFields = ['page', 'limit', 'fields', 'age'];
+    excludedFields.forEach((el) => delete queryObj[el]);
+    const presctiptions = await Prescription.find(queryObj);
     res.status(200).json({
       status: 'success',
       presctiptions,
