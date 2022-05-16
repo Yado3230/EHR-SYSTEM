@@ -5,7 +5,7 @@ const validator = require('validator');
 
 const patientSchema = new mongoose.Schema(
   {
-    patientName: {
+    name: {
       type: String,
       required: [true, 'Patient must have a name'],
     },
@@ -75,6 +75,7 @@ const patientSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Insurance',
     },
+    address: String,
     locations: [
       {
         type: {

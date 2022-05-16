@@ -11,7 +11,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(protect, restrictTo('receptionist', 'admin', 'nurse'), getAllPatients)
+  .get(protect, restrictTo('receptionist'), getAllPatients)
   .post(protect, restrictTo('receptionist'), createPatient);
 router.route('/joined').get(join);
 router.route('/patient-record/information').get(makeAPIforDataWhereHouse);

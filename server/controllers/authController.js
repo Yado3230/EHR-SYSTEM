@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendEmail = require('../utils/email');
 const User = require('../models/userModel');
+const NODE_ENV = process.env.NODE_ENV;
 
 const signToken = (id) => {
   try {
@@ -31,9 +32,10 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
+    secure: NODE_ENV === 'production' ? true : false,
     httpOnly: true,
   };
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
   //remove password from the output
   user.password = undefined;
   res.cookie('jwt', token, cookieOptions);
@@ -88,6 +90,19 @@ exports.login = async (req, res, next) => {
   }
 };
 
+exports.logout = async (req, res) => {
+  const cookieOptions = {
+    expires: new Date(Date.now() + 10 * 1000),
+    secure: NODE_ENV === 'production' ? true : false,
+    httpOnly: true,
+  };
+  res.cookie('jwt', 'expiredtoken', cookieOptions);
+  res.status(200).json({
+    status: 'success',
+    message: 'logged out successfully',
+  });
+};
+
 exports.protect = async (req, res, next) => {
   try {
     //getting token check if its there
@@ -97,8 +112,10 @@ exports.protect = async (req, res, next) => {
       req.headers.authorization.startsWith('Bearer')
     ) {
       token = req.headers.authorization.split(' ')[1];
+    } else if (req.cookies.jwt) {
+      token = req.cookies.jwt;
     }
-    if (!token) {
+    if (!token || token === 'expiredtoken') {
       return res.status(401).json({
         message: 'You are not logged in, please log in to get access',
       });
@@ -127,6 +144,40 @@ exports.protect = async (req, res, next) => {
     });
   }
 };
+
+///only for rendered pages, no errors
+// exports.isLoggedIn = async (req, res, next) => {
+//   try {
+//     //getting token check if its there
+//     if (req.cookies.jwt) {
+//       //verify the token
+//       const decoded = await promisify(jwt.verify)(
+//         req.cookies.jwt,
+//         process.env.JWT_SECRET
+//       );
+
+//       //check if user still exists
+//       const currentUser = await User.findById(decoded.id);
+//       if (!currentUser) {
+//         return next();
+//       }
+//       //check if user change password after jwt was issued
+//       if (currentUser.changedPasswordAfter(decoded.iat)) {
+//         return next();
+//       }
+//       //there is a logged in user
+//       res.locals.user = currentUser;
+//       next();
+//     }
+//     next();
+//   } catch (err) {
+//     res.status(404).json({
+//       status: 'fail',
+//       message: err,
+//     });
+//   }
+// };
+
 exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
