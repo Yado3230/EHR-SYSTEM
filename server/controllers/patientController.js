@@ -16,6 +16,37 @@ exports.getAllPatients = async (req, res) => {
     });
   }
 };
+exports.deletePatient = async (req, res) => {
+  try {
+    const patient = await Patient.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: 'success',
+      patient,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+exports.updatePatient = async (req, res) => {
+  try {
+    const patient = await Patient.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: 'success',
+      patient,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
 exports.createPatient = async (req, res) => {
   try {
     const patients = await Patient.create(req.body);
@@ -99,7 +130,7 @@ exports.join = async (req, res) => {
 
     // console.log(patients);
     const data = patients.map((patient) => ({
-      patientName: patient.firstName + ' ' + patient.lastName,
+      patientName: patient.name,
       patientAge: patient.age,
       bloodGroup: patient.bloodGroup,
       sex: patient.gender,
@@ -114,6 +145,57 @@ exports.join = async (req, res) => {
       status: 'success',
       data: {
         data,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.warehouse = async (req, res) => {
+  try {
+    const patient = Patient.aggregate([
+      {
+        $match: {
+          $and: [
+            {
+              registeredAt: {
+                $gte: ISODate('2021-01-05T12:29:30.000+00:00'),
+              },
+            },
+            {
+              registeredAt: {
+                $lte: ISODate('2022-05-22T12:29:30.000+00:00'),
+              },
+            },
+          ],
+        },
+      },
+      // {
+      //   $addFields: {
+      //     uniqueHour: {
+      //       $dateToString: {
+      //         format: '%Y-%m-%d-%H',
+      //         date: '$createdAt',
+      //       },
+      //     },
+      //   },
+      // },
+    ])
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        patient,
       },
     });
   } catch (err) {

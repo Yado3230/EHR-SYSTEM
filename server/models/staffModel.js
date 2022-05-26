@@ -18,6 +18,7 @@ const staffSchema = new mongoose.Schema(
         'admin',
         'superAdmin',
         'pharmacist',
+        'accountant',
         'laboratorist',
         'nurse',
       ],
@@ -25,7 +26,7 @@ const staffSchema = new mongoose.Schema(
     },
     birthday: {
       type: Date,
-      required: [true, 'patient must have birth date'],
+      // required: [true, 'patient must have birth date'],
     },
     age: {
       type: Number,
@@ -67,6 +68,7 @@ const staffSchema = new mongoose.Schema(
       },
       select: false,
     },
+    address: String,
     locations: [
       {
         type: {

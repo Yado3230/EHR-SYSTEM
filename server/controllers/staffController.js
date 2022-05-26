@@ -62,3 +62,20 @@ exports.getStaff = async (req, res, next) => {
     });
   }
 };
+exports.deleteStaff = async (req, res, next) => {
+  try {
+    const staff = await Staff.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: 'success',
+      data: {
+        staff,
+      },
+    });
+    next();
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};

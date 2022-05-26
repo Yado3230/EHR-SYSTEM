@@ -9,7 +9,15 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(protect, restrictTo('receptionist'), getAllAppointments)
-  .post(protect, restrictTo('receptionist'), createAppointment);
+  .get(
+    protect,
+    restrictTo('receptionist', 'admin', 'doctor'),
+    getAllAppointments
+  )
+  .post(
+    protect,
+    restrictTo('receptionist', 'admin', 'doctor'),
+    createAppointment
+  );
 
 module.exports = router;

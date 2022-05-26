@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
       'admin',
       'superAdmin',
       'pharmacist',
+      'accountant',
       'laboratorist',
       'nurse',
     ],
