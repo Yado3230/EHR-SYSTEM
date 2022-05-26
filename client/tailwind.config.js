@@ -14,6 +14,9 @@ module.exports = {
         '110':'34rem',
         '120':'37rem',
         '130':"43rem"
+      },
+      blur: {
+        xs: '1.5px',
       }
     },
   },

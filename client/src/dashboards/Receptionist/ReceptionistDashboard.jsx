@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Remainder from './Remainder';
 import { chartData } from '../../components/Charts/data';
 import LineChart from '../../components/Charts/LineChart';
@@ -8,16 +8,26 @@ import rooms from '../../assets/rooms.png';
 import CountUp from 'react-countup';
 
 const ReceptionistDashboard = () => {
-  const [chartDataState, setChartDataState] = useState({
+  const data = {
     labels: chartData.map(data => data.month),
     datasets: [
       {
         label: 'Payment gained',
         data: chartData.map(data => data.hospitalGain),
-        backgroundColor: ['green', 'blue'],
+        pointHoverRadius: 4,
+        color: `rgba(134, 65, 244, 0.2)`,
+        backgroundColor: 'blue',
+        borderWidth: 2,
+      },
+      {
+        label: 'Payment lost',
+        data: chartData.map(data => data.hospitalLost),
+        pointHoverRadius: 5,
+        backgroundColor: 'red',
+        borderWidth: 2,
       },
     ],
-  });
+  };
   return (
     <div className="grid grid-cols-6 gap-1">
       <div className=" m-6 col-span-4">
@@ -63,19 +73,20 @@ const ReceptionistDashboard = () => {
             </div>
           </div>
         </div>
-        <div>
-          <span>Payment Statistics</span>
-          <div>
-            <LineChart
-              chartData={chartDataState}
-              setChartData={setChartDataState}
-            />
+        <div className="bg-white my-4 rounded border shadow">
+          <span className="bg-gray-100 p-2 mb-2 rounded border flex">
+            Payment Statistics
+          </span>
+          <div className="p-3">
+            <LineChart data={data} />
           </div>
         </div>
-        <div>
-          <span>Today's Payment</span>
-          <div className="my-2 bg-white h-80 border rounded shadow">
-            <div>...</div>
+        <div className="my-2 bg-white h-80 border rounded shadow">
+          <span className="bg-gray-100 p-2 mb-2 rounded border flex">
+            Today's Payment
+          </span>
+          <div className="p-3">
+            <div className='text-gray-400'>there is no payment</div>
           </div>
         </div>
       </div>

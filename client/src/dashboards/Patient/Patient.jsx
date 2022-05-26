@@ -1,8 +1,8 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import AddPatient from "../../components/Patients/AddPatient/AddPatient";
-import PatientSideBar from "../../components/sidebar/individuals/PatientSideBar";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Header from '../../components/Header/Header';
+import Profile from '../../components/Profile/Profile';
+import PatientSideBar from '../../components/sidebar/individuals/PatientSideBar';
 
 const Patient = () => {
   return (
@@ -11,7 +11,7 @@ const Patient = () => {
       <div className="flex flex-col flex-1">
         <Header />
         <Routes>
-          <Route path="patients/add_patient" element={<AddPatient />} />
+          <Route path="profile" element={<Profile />} />
         </Routes>
       </div>
     </div>

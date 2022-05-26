@@ -6,7 +6,7 @@ import UpdateMe from './UpdateMe';
 function Profile() {
   const [value, setValue] = React.useState(false);
   return (
-    <div className="m-10 p-8 bg-white border rouded shadow">
+    <div className="m-10 p-8 bg-white border rouded shadow w-6/12">
       <div>
         <h2 className="py-2 text-2xl">Profile Information</h2>
         <div className="bg-gray-500">
@@ -21,8 +21,6 @@ function Profile() {
             >
               <Tab label="Change Email" />
               <Tab label="Change Password" />
-              {/* <Tab label="Disabled TAB!" disabled />
-            <Tab label="Active Tab Three" /> */}
             </Tabs>
           </Paper>
         </div>

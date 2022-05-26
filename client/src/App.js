@@ -8,24 +8,39 @@ import Login from './pages/login/Login';
 import ForgotPassword from './components/Password/ForgotPassword';
 import ResetPassword from './components/Password/ResetPassword';
 import CheckEmail from './components/Password/CheckEmail';
+// import ProtectedRoutes from './protectedRoutes/ProtectedRoutes';
+import Layout from './components/Layout/Layout';
+import RequireAuth from './components/RequireAuth/RequireAuth';
+import Unauthorized from './utils/Unauthorized';
+import EditUser from './components/Patients/AddPatient/EditUser';
 
 const App = () => {
   return (
-    <div>
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Layout />}>
         <Route path="/" element={<Login />} />
-        <Route path="/receptionist/*" element={<Receptionist />} />
-        <Route path="/doctor/*" element={<Doctor />} />
-        <Route path="/admin/*" element={<Admin />} />
-        <Route path="/patient/*" element={<Patient />} />
+        <Route element={<RequireAuth allowedRoles={['receptionist']} />}>
+          <Route path="/receptionist/*" element={<Receptionist />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={'doctor'} />}>
+          <Route path="/doctor/*" element={<Doctor />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={'admin'} />}>
+          <Route path="/admin/*" element={<Admin />} />
+        </Route>
+        <Route element={<RequireAuth allowedRoles={'patient'} />}>
+          <Route path="/patient/*" element={<Patient />} />
+        </Route>
         <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/resetPassword" element={<CheckEmail />} />
+        <Route path="/edit" element={<EditUser />} />
         <Route
           path="/api/auth/resetPassword/:token"
           element={<ResetPassword />}
         />
-      </Routes>
-    </div>
+      </Route>
+    </Routes>
   );
 };
 

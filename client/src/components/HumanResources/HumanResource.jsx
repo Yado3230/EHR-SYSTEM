@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
+import Lists from '../lists/lists';
+import API from '../../utils/API';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import Lists from '../../lists/lists';
-import { useNavigate } from 'react-router-dom';
-import API from '../../../utils/API';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const PatientList = () => {
-  const navigate = useNavigate();
   const [data, setData] = useState([]);
-  const [changed, setChanged] = useState(false);
-  // const [detailData, setDetailData] = useState([]);
+  const [detailData, setDetailData] = useState([]);
   const [activeHidden, setActiveHidden] = useState(true);
+  const [changed, setChanged] = useState(false);
+  const params = useParams();
+  const role = params.role;
+  const navigate = useNavigate();
 
+  const handleClick = id => {
+    setDetailData(data[id]);
+    console.log(detailData);
+  };
   const MySwal = withReactContent(Swal);
-
   const handleDeleteClick = id => {
     MySwal.fire({
       title: 'Are you sure?',
@@ -27,7 +32,7 @@ const PatientList = () => {
     }).then(result => {
       if (result.isConfirmed) {
         try {
-          API.delete(`api/system/patients/deletepatient/${id}`).then(res => {
+          API.delete(`api/system/staffs/deletestaff/${id}`).then(res => {
             console.log(res);
             return res;
           });
@@ -40,17 +45,20 @@ const PatientList = () => {
     });
   };
   const handleAddClick = () => {
-    navigate('add_patient');
+    navigate(`/admin/humanresouces/addnew/${role}`);
   };
-  const listTitle = 'List of Patients';
+  const handleEditClick = id => {
+    setActiveHidden(!activeHidden);
+  };
+  const listTitle = role.toUpperCase();
 
   useEffect(() => {
     const fetchdata = async () => {
-      const result = await API.get('api/system/patients');
-      setData(result.data.patients);
+      const result = await API.get(`api/system/staffs?role=${role}`);
+      setData(result.data.data.staffs);
     };
     fetchdata();
-  }, [changed]);
+  }, [role, changed]);
 
   return (
     <div>
@@ -58,9 +66,10 @@ const PatientList = () => {
         <Lists
           title={listTitle}
           activeHidden={activeHidden}
-          setActiveHidden={setActiveHidden}
           data={data}
           handleAddClick={handleAddClick}
+          handleClick={handleClick}
+          handleEditClick={handleEditClick}
           handleDeleteClick={handleDeleteClick}
         />
       </div>

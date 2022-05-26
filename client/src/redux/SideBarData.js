@@ -26,7 +26,7 @@ export const ReceptionistMenuData = [
   {
     id: 2,
     title: 'Patients',
-    path: 'patients',
+    path: 'patients/lists',
     icon: <PersonIcon />,
     hidden: true,
     subContent: [
@@ -37,7 +37,7 @@ export const ReceptionistMenuData = [
       },
       {
         title: 'Add Patient',
-        path: 'patients/add_patient',
+        path: 'patients/lists/add_patient',
         icon: <PersonAddIcon />,
       },
       {
@@ -52,7 +52,7 @@ export const ReceptionistMenuData = [
   {
     id: 3,
     title: 'Schedule',
-    path: 'schedule',
+    path: 'schedule/schedules',
     icon: <CalendarViewMonthIcon />,
     hidden: true,
     subContent: [
@@ -72,18 +72,18 @@ export const ReceptionistMenuData = [
   {
     id: 4,
     title: 'Appointment',
-    path: 'appointment',
+    path: 'appointment/lists',
     icon: <BookOnlineIcon />,
     hidden: true,
     subContent: [
       {
         title: 'All Appointment',
-        path: 'appointment/all_appointments',
+        path: 'appointment/lists',
         icon: <BookOnlineIcon />,
       },
       {
         title: 'Add Appointment',
-        path: 'appointment/add_appointment',
+        path: 'appointment/lists/add_appointment',
         icon: <AddCommentIcon />,
       },
       {
@@ -120,8 +120,8 @@ export const ReceptionistMenuData = [
   },
   {
     id: 7,
-    title: 'Patient Activity',
-    path: 'patient_activity',
+    title: 'User Activity Report',
+    path: 'user_activity',
     icon: <RowingIcon />,
     hidden: true,
   },
@@ -217,18 +217,18 @@ export const DoctorMenuData = [
   {
     id: 4,
     title: 'Appointment',
-    path: 'appointment',
+    path: 'appointment/lists',
     icon: <BookOnlineIcon />,
     hidden: true,
     subContent: [
       {
         title: 'All Appointment',
-        path: 'appointment/all_appointments',
+        path: 'appointment/lists',
         icon: <BookOnlineIcon />,
       },
       {
         title: 'Add Appointment',
-        path: 'appointment/add_appointment',
+        path: 'appointment/lists/add_appointment',
         icon: <AddCommentIcon />,
       },
       {
@@ -328,7 +328,7 @@ export const AdminMenuData = [
   {
     id: 2,
     title: 'Doctors',
-    path: '/admin',
+    path: 'doctors/lists',
     icon: <PersonIcon />,
     hidden: true,
     subContent: [
@@ -347,7 +347,7 @@ export const AdminMenuData = [
   {
     id: 3,
     title: 'Patients',
-    path: '/admin',
+    path: 'patients/lists',
     icon: <PersonIcon />,
     hidden: true,
     subContent: [
@@ -376,7 +376,7 @@ export const AdminMenuData = [
   {
     id: 4,
     title: 'Schedule',
-    path: '/admin',
+    path: 'schedule/schedules',
     icon: <CalendarViewMonthIcon />,
     hidden: true,
     subContent: [
@@ -396,18 +396,18 @@ export const AdminMenuData = [
   {
     id: 5,
     title: 'Appointment',
-    path: '/admin',
+    path: 'appointment/lists',
     icon: <BookOnlineIcon />,
     hidden: true,
     subContent: [
       {
         title: 'All',
-        path: 'appointment/all_appointments',
+        path: 'appointment/lists',
         icon: <BookOnlineIcon />,
       },
       {
         title: 'Add Appointment',
-        path: 'appointment/add_appointment',
+        path: 'appointment/lists/add_appointment',
         icon: <AddCommentIcon />,
       },
       {
@@ -431,33 +431,33 @@ export const AdminMenuData = [
   {
     id: 6,
     title: 'Human Resources',
-    path: '/admin',
+    path: 'humanresouces/nurse',
     icon: <BookOnlineIcon />,
     hidden: true,
     subContent: [
       {
         title: 'Nurse',
-        path: 'nurse',
+        path: 'humanresouces/nurse',
         icon: <BookOnlineIcon />,
       },
       {
         title: 'Pharmacist',
-        path: 'pharmacist',
+        path: 'humanresouces/pharmacist',
         icon: <AddCommentIcon />,
       },
       {
         title: 'Accountant',
-        path: 'accountant',
+        path: 'humanresouces/accountant',
         icon: <TodayIcon />,
       },
       {
         title: 'Receptionist',
-        path: 'receptionist',
+        path: 'humanresouces/receptionist',
         icon: <CalendarTodayIcon />,
       },
       {
         title: 'Laboratorist',
-        path: 'laboratorist',
+        path: 'humanresouces/laboratorist',
         icon: <ReplyAllIcon />,
       },
       // { hidden: true },
@@ -473,7 +473,7 @@ export const AdminMenuData = [
   {
     id: 8,
     title: 'Financial Activity',
-    path: '/admin',
+    path: 'financial_activity/payments',
     icon: <ReportIcon />,
     hidden: true,
     subContent: [
@@ -519,7 +519,7 @@ export const AdminMenuData = [
   {
     id: 10,
     title: 'Medicine',
-    path: '/admin',
+    path: 'medicine/medicine_list',
     icon: <RowingIcon />,
     hidden: true,
     subContent: [
@@ -554,7 +554,7 @@ export const AdminMenuData = [
   {
     id: 11,
     title: 'Pharmacy',
-    path: '/admin',
+    path: 'pharmacy/sales',
     icon: <RowingIcon />,
     hidden: true,
     subContent: [
@@ -588,13 +588,13 @@ export const AdminMenuData = [
   {
     id: 12,
     title: 'Donor',
-    path: '/admin',
+    path: 'donor/list',
     icon: <RowingIcon />,
     hidden: true,
     subContent: [
       {
         title: 'Donor List',
-        path: 'donor/sales',
+        path: 'donor/list',
         icon: <ReportIcon />,
       },
       {
@@ -612,7 +612,7 @@ export const AdminMenuData = [
   {
     id: 13,
     title: 'Bed',
-    path: '/admin',
+    path: 'bed/bed_list',
     icon: <RowingIcon />,
     hidden: true,
     subContent: [
@@ -647,7 +647,7 @@ export const AdminMenuData = [
   {
     id: 14,
     title: 'Report',
-    path: '/admin',
+    path: 'report/financial_report',
     icon: <RowingIcon />,
     hidden: true,
     subContent: [
@@ -686,7 +686,7 @@ export const AdminMenuData = [
   {
     id: 15,
     title: 'Email',
-    path: '/admin',
+    path: 'email/new_email',
     icon: <RowingIcon />,
     hidden: true,
     subContent: [
@@ -710,7 +710,7 @@ export const AdminMenuData = [
   {
     id: 16,
     title: 'SMS',
-    path: '/admin',
+    path: 'sms/new_sms',
     icon: <RowingIcon />,
     hidden: true,
     subContent: [

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
 import Lists from '../lists/lists';
+import API from '../../utils/API';
 
 const DoctorList = () => {
   const [data, setData] = useState([]);
   const [detailData, setDetailData] = useState([]);
   const [activeHidden, setActiveHidden] = useState(true);
+  const role = 'doctor';
 
   const handleClick = id => {
     setDetailData(data[id]);
@@ -20,13 +20,11 @@ const DoctorList = () => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const result = await axios.get(
-        'http://localhost:5000/api/system/doctor-list'
-      );
-      setData(result.data.patients);
+      const result = await API.get(`api/system/staffs?role=${role}`);
+      setData(result.data.data.staffs);
     };
     fetchdata();
-  }, []);
+  }, [role]);
 
   console.log('this is from api', data);
 

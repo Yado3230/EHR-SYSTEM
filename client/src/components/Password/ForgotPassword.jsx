@@ -28,7 +28,7 @@ function ForgotPassword() {
   };
   return (
     <div>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center">
         <form
           action=""
           className="ui flex flex-col form w-120 m-4 p-10 bg-white border shadow rounded"

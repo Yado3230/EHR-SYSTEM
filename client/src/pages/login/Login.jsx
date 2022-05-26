@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+// import axios from 'axios';
+import { connect } from 'react-redux';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import loginLogo from './../../assets/login.png';
 // import { login } from '../../components/services/authServices';
-import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+import API from './../../utils/API';
+import { toggleRole } from '../../redux/user/userAction';
+
+const Login = ({ setRole }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+  console.log(from);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -22,15 +29,21 @@ const Login = () => {
   };
   const login = async e => {
     e.preventDefault();
-    const result = await axios
-      .post('http://localhost:5000/api/auth/login', user)
-      .then(res => {
+    try {
+      const result = await API.post('api/auth/login', user).then(res => {
         console.log(res);
         return res;
       });
-    if (result.status === 200) {
-      navigate(`/${result.data.data.user.role}`);
-      console.log(result.data.data.user.role);
+      const roles = result.data.data.user.role;
+      setRole(roles);
+
+      if (result.status === 200) {
+        navigate(`/${result.data.data.user.role}/dashboard`);
+        // navigate(from, { replace: true });
+        console.log(result.data.data.user.role);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -43,7 +56,7 @@ const Login = () => {
           </h1>
           <img
             className="w-full h-full rounded-2xl  bg-cover opacity-70 bg-slate-400"
-            src="https://buddy-dev.bluemirror.ai/images/user/login.png"
+            src={loginLogo}
             alt="logo"
           />
         </div>
@@ -111,5 +124,8 @@ const Login = () => {
   );
 };
 // }
+const mapDispatchToProps = dispatch => ({
+  setRole: item => dispatch(toggleRole(item)),
+});
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
