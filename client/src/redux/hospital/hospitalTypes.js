@@ -1,5 +1,3 @@
 export const userActionTypes = {
-  TOGGLE_ROLE: 'TOGGLE_ROLE',
-  SET_HOSPITAL_ID: 'SET_HOSPITAL_ID',
   SET_HOSPITAL_DATA: 'SET_HOSPITAL_DATA',
 };

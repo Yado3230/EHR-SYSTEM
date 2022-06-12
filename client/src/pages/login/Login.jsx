@@ -8,13 +8,15 @@ import loginLogo from './../../assets/login.png';
 // import { login } from '../../components/services/authServices';
 
 import API from './../../utils/API';
-import { toggleRole } from '../../redux/user/userAction';
+import { setHospitalID, toggleRole } from '../../redux/user/userAction';
 
-const Login = ({ setRole }) => {
+const Login = ({ setRole, setHospitalID }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
   console.log(from);
+  const [response, setResponse] = useState('');
+  const [color, setColor] = useState('');
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -30,20 +32,31 @@ const Login = ({ setRole }) => {
   const login = async e => {
     e.preventDefault();
     try {
-      const result = await API.post('api/auth/login', user).then(res => {
-        console.log(res);
-        return res;
-      });
-      const roles = result.data.data.user.role;
-      setRole(roles);
+      const result = await API.post('api/auth/login', user)
+        .then(res => {
+          // console.log('this is from response', res.message);
+          return res;
+        })
+        .catch(err => err);
+      console.log('this is from result', result);
 
       if (result.status === 200) {
-        navigate(`/${result.data.data.user.role}/dashboard`);
+        console.log('logged in seccessfully');
+        setResponse('logged in successfully');
+        setColor('red');
+        const roles = result.data.data.user;
+        const id = result.data.data.user.hospitalID;
+        setRole(roles);
+        setHospitalID(id);
         // navigate(from, { replace: true });
         console.log(result.data.data.user.role);
+        navigate(`/${result.data.data.user.role}/dashboard`);
+      } else {
+        setResponse('Incorrect email or password');
       }
+      // console.log('this is from result', result.status);
     } catch (error) {
-      console.log(error);
+      console.log('this is from error', error);
     }
   };
 
@@ -65,8 +78,15 @@ const Login = ({ setRole }) => {
             <h1 className="text-3xl absolute font-bold top-10 text-blue-500">
               <span>WELCOME TO EHR SYSTEM</span>
             </h1>
-            <h3 className="text-medium font-medium my-8 text-slate-500 italic">
+            <h3 className="text-medium font-medium my-4 text-slate-500 italic">
               Signin with email and password
+            </h3>
+            <h3
+              className={`text-md flex font-medium border-b ${
+                !color === 'red' ? 'border-red-500' : 'border-sky-500'
+              } text-red-500 italic`}
+            >
+              {response}
             </h3>
             <div className="flex flex-col w-full">
               <label className="w-full">Email</label>
@@ -126,6 +146,7 @@ const Login = ({ setRole }) => {
 // }
 const mapDispatchToProps = dispatch => ({
   setRole: item => dispatch(toggleRole(item)),
+  setHospitalID: item => dispatch(setHospitalID(item)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

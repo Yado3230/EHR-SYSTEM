@@ -2,19 +2,12 @@ import { createSelector } from 'reselect';
 
 const selectData = state => state.user;
 
-export const selectRole = createSelector(
+export const selectRole = createSelector([selectData], user => user.role);
+export const selectHospitalID = createSelector(
   [selectData],
-  user => user.role
+  user => user.hospitalID
 );
-// export const selectActive = createSelector(
-//   [selectData],
-//   menuBarData => menuBarData.active
-// );
-// export const selectHiddenToggle = createSelector(
-//   [selectData],
-//   menuBarData => menuBarData.content
-// );
-// export const selectHidden = createSelector(
-//   [selectData],
-//   menuBarData => menuBarData.hidden
-// );
+export const selectHospitalData = createSelector(
+  [selectData],
+  user => user.hospitalData
+);

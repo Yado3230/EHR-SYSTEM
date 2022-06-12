@@ -69,6 +69,10 @@ const staffSchema = new mongoose.Schema(
       select: false,
     },
     address: String,
+    hospitalEmail: {
+      type: String,
+      required: true,
+    },
     locations: [
       {
         type: {

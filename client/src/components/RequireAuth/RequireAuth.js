@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 const RequireAuth = ({ role, allowedRoles }) => {
   const location = useLocation();
   // eslint-disable-next-line eqeqeq
-  return role && role == allowedRoles ? (
+  return role && role.role == allowedRoles ? (
     <Outlet />
   ) : role ? (
     <Navigate to="/unauthorized" state={{ from: location }} replace />

@@ -10,6 +10,7 @@ const insuranceRouter = require('./routes/insuranceRouter');
 const diagnoseRouter = require('./routes/diagnoseRouter');
 const staffRouter = require('./routes/staffRouter');
 const appointmentRouter = require('./routes/appointmentRouter');
+const hospitalRouter = require('./routes/hospitalRouter');
 
 const app = express();
 //
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/system/patients', patientRouter);
+app.use('/api/system/hospitals', hospitalRouter);
 app.use('/api/system/prescriptions', prescriptionRouter);
 app.use('/api/auth', userRouter);
 app.use('/api/system/medicalrecords', medicalRecordRouter);

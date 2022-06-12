@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import API from './../../utils/API';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { toggleRole } from '../../redux/user/userAction';
+import { setHospitalData, toggleRole } from '../../redux/user/userAction';
+import {
+  selectHospitalData,
+  selectHospitalID,
+} from '../../redux/user/userSelector';
+import { createStructuredSelector } from 'reselect';
 // import './header.scss';
 
-const Header = ({ setRole }) => {
+const Header = ({ setRole, hospitalID, hospitalData, setHospitalData }) => {
   const navigate = useNavigate();
+  ////////////////
+  useEffect(() => {
+    const fetchdata = async () => {
+      const result = await API.get(`api/system/hospitals/${hospitalID}`);
+      setHospitalData(result.data.data.hospital);
+      console.log('this is from header', result.data.data.hospital);
+    };
+    fetchdata();
+  }, [hospitalID, setHospitalData]);
+  console.log(hospitalData);
+  /////////////
   const logoutUser = async () => {
     try {
       const res = await API.get('api/auth/logout');
@@ -23,7 +39,7 @@ const Header = ({ setRole }) => {
   };
   return (
     <div className="sticky shadow flex h-20 w-full px-12 items-center justify-between bg-white text-black">
-      <div>XYZ Hospital</div>
+      <div>{hospitalData.hospitalName.toUpperCase()}</div>
       <div
         className="cursor-pointer border rounded shadow px-2 py-1"
         onClick={e => logoutUser()}
@@ -35,5 +51,10 @@ const Header = ({ setRole }) => {
 };
 const mapDispatchToProps = dispatch => ({
   setRole: item => dispatch(toggleRole(item)),
+  setHospitalData: item => dispatch(setHospitalData(item)),
 });
-export default connect(null, mapDispatchToProps)(Header);
+const mapStateToProps = createStructuredSelector({
+  hospitalID: selectHospitalID,
+  hospitalData: selectHospitalData,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

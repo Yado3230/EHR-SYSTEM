@@ -1,11 +1,22 @@
-import React from "react";
-import MenuIcon from "@mui/icons-material/Menu";
-import SideBarItems from "./SideBarItems";
-import logo from "../../assets/Doctor_Male.png";
+import React from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import SideBarItems from './SideBarItems';
+import logo from '../../assets/Doctor_Male.png';
 
-import "./sidebar.scss";
+import './sidebar.scss';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectRole } from '../../redux/user/userSelector';
 
-const SideBar = ({ data, active, toggleActive, content, toggleHidden }) => {
+const SideBar = ({
+  data,
+  active,
+  toggleActive,
+  content,
+  toggleHidden,
+  role,
+}) => {
+  const current = new Date().toISOString().split('T')[0];
   return (
     <div className="forall w-full h-full">
       <div className="relative flex justify-center bg-gray-100">
@@ -19,9 +30,9 @@ const SideBar = ({ data, active, toggleActive, content, toggleHidden }) => {
               />
               {!active ? (
                 <div className="flex flex-col px-2 text-gray-400">
-                  <span>Yared Mesele</span>
-                  <span>yado@gmail.com</span>
-                  <span>09/12/2022</span>
+                  <span>{role.name.toUpperCase()}</span>
+                  <span>{role.email}</span>
+                  <span>{current}</span>
                 </div>
               ) : null}
             </div>
@@ -51,4 +62,8 @@ const SideBar = ({ data, active, toggleActive, content, toggleHidden }) => {
   );
 };
 
-export default SideBar;
+const mapStateToProps = createStructuredSelector({
+  role: selectRole,
+});
+
+export default connect(mapStateToProps)(SideBar);

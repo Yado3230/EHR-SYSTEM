@@ -72,10 +72,14 @@ const patientSchema = new mongoose.Schema(
     },
     emergency: Array,
     insurance: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: 'Insurance',
     },
     address: String,
+    hospitalEmail: {
+      type: String,
+      required: true,
+    },
     locations: [
       {
         type: {

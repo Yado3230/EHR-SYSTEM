@@ -1,7 +1,9 @@
 import { userActionTypes } from './userTypes';
 
 const INITIAL_STATE = {
-  role: null,
+  role: {},
+  hospitalID: null,
+  hospitalData: {},
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +12,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         role: action.payload,
+      };
+    case userActionTypes.SET_HOSPITAL_ID:
+      return {
+        ...state,
+        hospitalID: action.payload,
+      };
+    case userActionTypes.SET_HOSPITAL_DATA:
+      return {
+        ...state,
+        hospitalData: action.payload,
       };
     default:
       return state;

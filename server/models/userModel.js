@@ -4,6 +4,10 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'user must have a name'],
+  },
   role: {
     type: String,
     enum: [
@@ -42,6 +46,10 @@ const userSchema = new mongoose.Schema({
       },
       message: 'passwords are not the same',
     },
+  },
+  hospitalEmail: {
+    type: String,
+    required: true,
   },
   passwordChangedAt: Date,
   passwordResetToken: String,

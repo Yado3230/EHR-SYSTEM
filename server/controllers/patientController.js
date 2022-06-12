@@ -1,6 +1,7 @@
 const Patient = require('../models/patientModel');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
+const MedicalRecord = require('../models/medicalRecordModel');
 
 exports.getAllPatients = async (req, res) => {
   try {
@@ -18,10 +19,13 @@ exports.getAllPatients = async (req, res) => {
 };
 exports.deletePatient = async (req, res) => {
   try {
+    const result = await Patient.findById(req.params.id);
     const patient = await Patient.findByIdAndDelete(req.params.id);
+    const user = await User.findOneAndDelete({ email: result.email });
     res.status(204).json({
       status: 'success',
       patient,
+      user,
     });
   } catch (err) {
     res.status(404).json({
@@ -78,9 +82,11 @@ exports.makeAPIforDataWhereHouse = async (req, res) => {
     const patients = await Patient.find();
     console.log(patients);
     const data = patients.map((patient) => ({
-      newName: patient.firstName,
+      newName: patient.name,
       newAge: patient.age,
+      Email: patient.hospitalEmail,
       newUpdatedDate: patient.updatedAt,
+      patientID: patient._id,
     }));
     res.status(200).json({
       status: 'success',
@@ -98,59 +104,35 @@ exports.makeAPIforDataWhereHouse = async (req, res) => {
 
 exports.join = async (req, res) => {
   try {
-    const patients = await Patient.aggregate([
+    const records = await MedicalRecord.aggregate([
       {
         $lookup: {
           from: 'prescriptions',
-          let: { patientId: '$_id' },
-          pipeline: [
-            {
-              $match: {
-                $expr: {
-                  $and: [{ $eq: ['$id', '$$patientId'] }],
-                },
-              },
-            },
-            {
-              $sort: {
-                date: -1,
-              },
-            },
-          ],
+          localField: 'patient',
+          foreignField: 'patient',
           as: 'prescription',
         },
       },
-    ])
-      .then((result) => {
-        return result;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    ]);
 
-    // console.log(patients);
-    const data = patients.map((patient) => ({
-      patientName: patient.name,
-      patientAge: patient.age,
-      bloodGroup: patient.bloodGroup,
-      sex: patient.gender,
-      birthDate: patient.birthday,
-      phoneNumber: patient.phone,
-      email: patient.email,
-      maritalStatus: patient.maritalStatus,
-      patientPrescription: patient.prescription,
-    }));
-
+    const populated = await MedicalRecord.populate(records, {
+      path: 'patient',
+      select: 'name bloodGroup birthday age gender phone email address',
+    });
+    const medicalrecords = await MedicalRecord.populate(populated, {
+      path: 'doctor',
+      select: 'name phone email address',
+    });
     res.status(200).json({
       status: 'success',
       data: {
-        data,
+        medicalrecords,
       },
     });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
-      message: err,
+      message: err.message,
     });
   }
 };

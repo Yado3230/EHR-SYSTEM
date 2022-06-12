@@ -13,9 +13,6 @@ const prescriptionSchema = new mongoose.Schema({
   duration: {
     type: String,
   },
-  doctorName: {
-    type: String,
-  },
   date: {
     type: Date,
     default: new Date(),
@@ -36,6 +33,16 @@ const prescriptionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+prescriptionSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'patient',
+    select: 'name bloodGroup birthday age gender phone email address',
+  }).populate({
+    path: 'doctor',
+    select: 'name phone email address',
+  });
+  next();
 });
 
 const Patient = mongoose.model('Prescription', prescriptionSchema);

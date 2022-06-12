@@ -1,4 +1,5 @@
 const MedicalRecord = require('../models/medicalRecordModel');
+const Patient = require('../models/patientModel');
 
 exports.getAllMedicalRecords = async (req, res) => {
   try {
@@ -58,6 +59,34 @@ exports.getMedicalRecord = async (req, res) => {
     res.status(404).json({
       status: 'fail',
       message: err,
+    });
+  }
+};
+
+exports.joinedData = async (req, res) => {
+  try {
+    const patients = await Patient.aggregate([
+      {
+        $lookup: {
+          from: 'prescriptions',
+          localField: '_id',
+          foreignField: 'patient',
+          as: 'prescription',
+        },
+      },
+    ]);
+
+    console.log('this is from join' + patients);
+    res.status(200).json({
+      status: 'success',
+      data: {
+        patients,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err.message,
     });
   }
 };
