@@ -2,7 +2,6 @@ import React from "react";
 
 const AddPatient = () => {
   return (
-    // <div className="flex items-center justify-center border rounded shadow bg-white">
     <form action="" className="ui form w-120 bg-slate-100">
       <div className="flex flex-col border-2 rounded my-2">
         <h3 className="ui block header h-10 flex text-4xl justify-center items-center">

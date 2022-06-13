@@ -157,19 +157,9 @@ export const DoctorMenuData = [
         icon: <RecentActorsIcon />,
       },
       {
-        title: 'Case Manager',
-        path: 'patients/case_manager',
+        title: 'Search for Patients',
+        path: 'patients/searchpatients',
         icon: <PersonAddIcon />,
-      },
-      {
-        title: 'Payments',
-        path: 'patients/payments',
-        icon: <PaidIcon />,
-      },
-      {
-        title: 'Documents',
-        path: 'patients/documents',
-        icon: <PaidIcon />,
       },
       // { hidden: true },
     ],

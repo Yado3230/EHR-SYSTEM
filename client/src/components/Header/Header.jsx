@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import API from './../../utils/API';
+import { API1 } from './../../utils/API';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setHospitalData, toggleRole } from '../../redux/user/userAction';
@@ -15,7 +15,7 @@ const Header = ({ setRole, hospitalID, hospitalData, setHospitalData }) => {
   ////////////////
   useEffect(() => {
     const fetchdata = async () => {
-      const result = await API.get(`api/system/hospitals/${hospitalID}`);
+      const result = await API1.get(`api/system/hospitals/${hospitalID}`);
       setHospitalData(result.data.data.hospital);
       console.log('this is from header', result.data.data.hospital);
     };
@@ -25,21 +25,22 @@ const Header = ({ setRole, hospitalID, hospitalData, setHospitalData }) => {
   /////////////
   const logoutUser = async () => {
     try {
-      const res = await API.get('api/auth/logout');
+      const res = await API1.get('api/auth/logout');
       if ((res.data.status = 'success')) {
         navigate('/');
         // eslint-disable-next-line no-restricted-globals
         location.reload(true);
+        setRole(null);
+        setHospitalData(null);
       }
       console.log(res);
-      setRole(null);
     } catch (error) {
       console.log(error.response);
     }
   };
   return (
     <div className="sticky shadow flex h-20 w-full px-12 items-center justify-between bg-white text-black">
-      <div>{hospitalData.hospitalName.toUpperCase()}</div>
+      <div>{hospitalData ? hospitalData.name.toUpperCase() : null}</div>
       <div
         className="cursor-pointer border rounded shadow px-2 py-1"
         onClick={e => logoutUser()}

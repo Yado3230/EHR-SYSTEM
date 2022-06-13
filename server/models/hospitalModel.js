@@ -5,7 +5,7 @@ const validator = require('validator');
 
 const hospitalSchema = new mongoose.Schema(
   {
-    hospitalName: {
+    name: {
       type: String,
       required: [true, 'hospital must have a name'],
     },
@@ -18,6 +18,10 @@ const hospitalSchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
       validate: [validator.isEmail, 'please provide a valid email'],
+    },
+    address: {
+      type: String,
+      required: true,
     },
     hospitalAdmin: Array,
     locations: [
@@ -47,7 +51,6 @@ const hospitalSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
 
 const Hospital = mongoose.model('Hospital', hospitalSchema);
 module.exports = Hospital;

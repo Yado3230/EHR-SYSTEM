@@ -3,7 +3,10 @@ import Swal from 'sweetalert2';
 import { useParams } from 'react-router-dom';
 
 import withReactContent from 'sweetalert2-react-content';
-import API from '../../utils/API';
+import { API1 } from '../../utils/API';
+import { connect } from 'react-redux';
+import { selectHospitalData } from '../../redux/user/userSelector';
+import { createStructuredSelector } from 'reselect';
 
 const MySwal = withReactContent(Swal);
 const Alert = () => {
@@ -15,7 +18,7 @@ const Alert = () => {
     timer: 1500,
   });
 };
-const AddStaff = () => {
+const AddStaff = ({ hospitalData }) => {
   const params = useParams();
   const role = params.role;
   const current = new Date().toISOString().split('T')[0];
@@ -30,6 +33,7 @@ const AddStaff = () => {
     email: '',
     password: '123456',
     confirmPassword: '123456',
+    hospitalEmail: hospitalData.email,
     address: '',
   });
 
@@ -44,7 +48,7 @@ const AddStaff = () => {
     e.preventDefault();
     try {
       console.log('before', staff);
-      const result = await API.post('api/system/staffs', staff).then(res => {
+      const result = await API1.post('api/system/staffs', staff).then(res => {
         console.log(res);
         return res;
       });
@@ -214,4 +218,7 @@ const AddStaff = () => {
     </div>
   );
 };
-export default AddStaff;
+const mapStateToProps = createStructuredSelector({
+  hospitalData: selectHospitalData,
+});
+export default connect(mapStateToProps)(AddStaff);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Lists from '../lists/lists';
-import API from '../../utils/API';
+import { API1 } from '../../utils/API';
 
 const DoctorList = () => {
   const [data, setData] = useState([]);
@@ -20,7 +20,7 @@ const DoctorList = () => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const result = await API.get(`api/system/staffs?role=${role}`);
+      const result = await API1.get(`api/system/staffs?role=${role}`);
       setData(result.data.data.staffs);
     };
     fetchdata();

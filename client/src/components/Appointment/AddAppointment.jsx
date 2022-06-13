@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
-import API from './../../utils/API';
+import { API1 } from './../../utils/API';
 import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
@@ -35,7 +35,7 @@ function AddAppointment() {
   const addAppointment = async e => {
     e.preventDefault();
     try {
-      const result = await API.post('api/system/appointment', appointment).then(
+      const result = await API1.post('api/system/appointment', appointment).then(
         res => {
           console.log(res);
           return res;

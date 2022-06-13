@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
 import Lists from '../lists/lists';
-import API from '../../utils/API';
+import { API1 } from '../../utils/API';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -32,7 +32,7 @@ const PatientList = () => {
     }).then(result => {
       if (result.isConfirmed) {
         try {
-          API.delete(`api/system/staffs/deletestaff/${id}`).then(res => {
+          API1.delete(`api/system/staffs/deletestaff/${id}`).then(res => {
             console.log(res);
             return res;
           });
@@ -54,7 +54,7 @@ const PatientList = () => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const result = await API.get(`api/system/staffs?role=${role}`);
+      const result = await API1.get(`api/system/staffs?role=${role}`);
       setData(result.data.data.staffs);
     };
     fetchdata();

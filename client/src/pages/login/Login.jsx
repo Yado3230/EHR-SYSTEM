@@ -7,7 +7,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import loginLogo from './../../assets/login.png';
 // import { login } from '../../components/services/authServices';
 
-import API from './../../utils/API';
+import { API1 } from './../../utils/API';
 import { setHospitalID, toggleRole } from '../../redux/user/userAction';
 
 const Login = ({ setRole, setHospitalID }) => {
@@ -32,7 +32,7 @@ const Login = ({ setRole, setHospitalID }) => {
   const login = async e => {
     e.preventDefault();
     try {
-      const result = await API.post('api/auth/login', user)
+      const result = await API1.post('api/auth/login', user)
         .then(res => {
           // console.log('this is from response', res.message);
           return res;
@@ -45,7 +45,7 @@ const Login = ({ setRole, setHospitalID }) => {
         setResponse('logged in successfully');
         setColor('red');
         const roles = result.data.data.user;
-        const id = result.data.data.user.hospitalID;
+        const id = result.data.data.user.hospitalEmail;
         setRole(roles);
         setHospitalID(id);
         // navigate(from, { replace: true });

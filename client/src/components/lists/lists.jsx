@@ -5,13 +5,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PaginationExampleCompact from '../../utils/pagination';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import API from '../../utils/API';
+import { API1 } from '../../utils/API';
 
 const Lists = ({ data, handleDeleteClick, title, handleAddClick }) => {
   const [filtered, setFiltered] = useState(10);
   const MySwal = withReactContent(Swal);
   const [id, setId] = useState();
   const [activeHidden, setActiveHidden] = useState(false);
+  const [search, setSearch] = useState({
+    patient: '',
+  });
   const [user, setUser] = useState([]);
   const [hideDetails, setHideDetails] = useState(true);
   const Alert = message => {
@@ -49,10 +52,16 @@ const Lists = ({ data, handleDeleteClick, title, handleAddClick }) => {
     setUser(item);
     setHideDetails(false);
   };
+  const handleSearch = e => {
+    const { name, value } = e.target;
+    setSearch({
+      [name]: value,
+    });
+  };
   const updateUser = async e => {
     e.preventDefault();
     try {
-      const result = await API.patch(
+      const result = await API1.patch(
         `api/system/patients/updatepatient/${id}`,
         user
       ).then(res => {
@@ -112,6 +121,9 @@ const Lists = ({ data, handleDeleteClick, title, handleAddClick }) => {
               type="text"
               className="text-sm"
               placeholder="Search patient..."
+              name="patient"
+              value={search.patient}
+              onChange={handleSearch}
             />
             <i className="user icon small"></i>
             {/* <i className="search icon"></i> */}
@@ -129,6 +141,18 @@ const Lists = ({ data, handleDeleteClick, title, handleAddClick }) => {
             <tbody>
               {data !== null && data instanceof Array
                 ? data
+                    // eslint-disable-next-line array-callback-return
+                    .filter(val => {
+                      if (search.patient === '') {
+                        return val;
+                      } else if (
+                        val.name
+                          .toLowerCase()
+                          .includes(search.patient.toLowerCase())
+                      ) {
+                        return val;
+                      }
+                    })
                     .filter((item, index) => index < filtered)
                     .map(item => {
                       return (

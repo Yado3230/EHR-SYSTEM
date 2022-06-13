@@ -13,6 +13,7 @@ import Layout from './components/Layout/Layout';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import Unauthorized from './utils/Unauthorized';
 import EditUser from './components/Patients/AddPatient/EditUser';
+import OtherHospital from './components/FromOtherHospital/OtherHospital';
 
 const App = () => {
   return (
@@ -35,6 +36,8 @@ const App = () => {
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/resetPassword" element={<CheckEmail />} />
         <Route path="/edit" element={<EditUser />} />
+        <Route path="/otherhospital" element={<OtherHospital />} />
+        <Route path="/otherhospital" element={<OtherHospital />} />
         <Route
           path="/api/auth/resetPassword/:token"
           element={<ResetPassword />}

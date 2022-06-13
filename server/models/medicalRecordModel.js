@@ -33,6 +33,10 @@ const medicalRecordSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'labTest',
   },
+  hospital: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Hospital',
+  },
   description: {
     type: String,
   },

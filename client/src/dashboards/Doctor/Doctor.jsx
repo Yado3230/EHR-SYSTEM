@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import SearchForPatients from '../../components/FromOtherHospital/SearchForPatients';
 import Header from '../../components/Header/Header';
 import PatientList from '../../components/Patients/Patient List/PatientList';
 import Prescription from '../../components/prescription/Prescription';
@@ -19,6 +20,10 @@ const Doctor = () => {
           <Route path="treatment/add_treatment" element={<AddTreatment />} />
           <Route path="treatment/treatment_list" element={<TreatmentList />} />
           <Route path="prescription" element={<Prescription />} />
+          <Route
+            path="patients/searchpatients"
+            element={<SearchForPatients />}
+          />
 
           <Route path="profile" element={<Profile />} />
         </Routes>

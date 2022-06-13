@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import Lists from '../../lists/lists';
 import { useNavigate } from 'react-router-dom';
-import API from '../../../utils/API';
+import { API1 } from '../../../utils/API';
 
 const PatientList = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const PatientList = () => {
     }).then(result => {
       if (result.isConfirmed) {
         try {
-          API.delete(`api/system/patients/deletepatient/${id}`).then(res => {
+          API1.delete(`api/system/patients/deletepatient/${id}`).then(res => {
             console.log(res);
             return res;
           });
@@ -46,7 +46,7 @@ const PatientList = () => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const result = await API.get('api/system/patients');
+      const result = await API1.get('api/system/patients');
       setData(result.data.patients);
     };
     fetchdata();

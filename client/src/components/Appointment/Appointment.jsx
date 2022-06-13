@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import API from '../../utils/API';
+import { API1 } from '../../utils/API';
 import { useNavigate } from 'react-router-dom';
 
 const Appointment = () => {
@@ -7,7 +7,7 @@ const Appointment = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchdata = async () => {
-      const result = await API.get('api/system/appointment');
+      const result = await API1.get('api/system/appointment');
       setData(result.data.data.appointments);
     };
     fetchdata();

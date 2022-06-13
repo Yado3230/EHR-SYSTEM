@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 // import { useNavigate } from 'react-router-dom';
-import API from './../../../utils/API';
+import { API1 } from './../../../utils/API';
 import withReactContent from 'sweetalert2-react-content';
+import { connect } from 'react-redux';
+import { selectHospitalData } from '../../../redux/user/userSelector';
+import { createStructuredSelector } from 'reselect';
 
 const MySwal = withReactContent(Swal);
 const Alert = (status, message) => {
@@ -14,9 +17,8 @@ const Alert = (status, message) => {
     timer: 1500,
   });
 };
-const PatientRegistration = () => {
+const PatientRegistration = ({ hospitalData }) => {
   const current = new Date().toISOString().split('T')[0];
-  // const navigate = useNavigate();
   const [patient, setPatient] = useState({
     name: '',
     bloodGroup: '',
@@ -28,7 +30,7 @@ const PatientRegistration = () => {
     email: '',
     password: '123456',
     confirmPassword: '123456',
-    // emergency: [],
+    hospitalEmail: hospitalData.email,
     address: '',
   });
 
@@ -42,7 +44,7 @@ const PatientRegistration = () => {
   const registerPatient = async e => {
     e.preventDefault();
     try {
-      const result = await API.post('api/system/patients', patient).then(
+      const result = await API1.post('api/system/patients', patient).then(
         res => {
           console.log(res);
           return res;
@@ -258,35 +260,6 @@ const PatientRegistration = () => {
             </div>
           </div>
         </div>
-        {/* <div className="flex-flex-col border-2 rounded my-2">
-          <h3 className="ui block header h-10 flex text-4xl justify-center items-center">
-            Insurance Information
-          </h3>
-          <div className="three fields p-2">
-            <div className="field">
-              <label htmlFor="">Company Name:</label>
-              <input type="text" placeholder="Company Name" />
-            </div>
-            <div className="field">
-              <label htmlFor="">Card Number:</label>
-              <input type="text" placeholder="#Card Number" />
-            </div>
-            <div className="field">
-              <label htmlFor="">Policy Number:</label>
-              <input type="text" placeholder="#Policy Number" />
-            </div>
-          </div>
-          <div className="three fields p-2">
-            <div className="field">
-              <label htmlFor="">Expire Date:</label>
-              <input type="Date" placeholder="Expire Date" min={current} />
-            </div>
-            <div className="field">
-              <label htmlFor="">Income</label>
-              <input type="number" placeholder="Income" />
-            </div>
-          </div>
-        </div> */}
         <div className="ui divider border"></div>
         <button className="p-2 m-5 w-32 bg-blue-500 hover:bg-blue-600 justify-center items-center rounded text-white font-bold">
           SUBMIT
@@ -295,4 +268,7 @@ const PatientRegistration = () => {
     </div>
   );
 };
-export default PatientRegistration;
+const mapStateToProps = createStructuredSelector({
+  hospitalData: selectHospitalData,
+});
+export default connect(mapStateToProps)(PatientRegistration);

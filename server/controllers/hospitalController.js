@@ -19,8 +19,8 @@ exports.getAllHospitals = async (req, res) => {
 };
 exports.getHospital = async (req, res) => {
   try {
-    const id = req.params.id;
-    const hospital = await Hospital.findById(id);
+    const email = req.params.email;
+    const hospital = await Hospital.findOne({ email: email });
     res.status(200).json({
       status: 'success',
       data: {

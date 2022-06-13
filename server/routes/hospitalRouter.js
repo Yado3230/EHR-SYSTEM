@@ -7,9 +7,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(protect, restrictTo('receptionist,admin'), getAllHospitals)
-  .post(protect, restrictTo('admin'), createHospital);
-router
-  .route('/:id')
-  .get(protect, restrictTo('admin', 'receptionist', 'doctor'), getHospital);
+  .get(protect, restrictTo('receptionist', 'admin'), getAllHospitals)
+  .post(protect, restrictTo('receptionist', 'admin'), createHospital);
+router.route('/:email').get(getHospital);
 module.exports = router;
