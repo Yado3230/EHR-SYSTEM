@@ -30,6 +30,8 @@ const SearchForPatients = () => {
     };
     fetchdata();
   }, []);
+  console.log('terror', data);
+  console.log('terror2', hospital.name);
   return (
     <div className="border rounded shadow p-4 m-6 flex flex-col">
       <div className="bg-white border rounded shadow">

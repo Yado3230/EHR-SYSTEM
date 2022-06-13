@@ -125,7 +125,7 @@ exports.join = async (req, res) => {
     });
     const medicalrecords = await MedicalRecord.populate(medicalrecord, {
       path: 'hospital',
-      select: 'hospitalName contactNumber email address registeredAt',
+      select: 'name contactNumber email address registeredAt',
     });
     res.status(200).json({
       status: 'success',
